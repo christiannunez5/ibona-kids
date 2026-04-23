@@ -2,7 +2,51 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="chart-table-page">
+    <h1>Simple Chart Table</h1>
+    <p>This table shows the basic database tables used in the project.</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Table Name</th>
+                    <th>Columns</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>product_categories</td>
+                    <td>id, name</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>users</td>
+                    <td>id, username, email_address, password, role, balance</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>products</td>
+                    <td>id, name, price, image, is_active, stock_quantity, product_category_id, created_by_id</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>cart</td>
+                    <td>id, quantity, added_at, product_id, user_id</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>orders</td>
+                    <td>id, total_amount, created_at, status, user_id</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>order_items</td>
+                    <td>id, quantity, unit_price, order_id, product_id</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

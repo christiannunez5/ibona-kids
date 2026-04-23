@@ -20,3 +20,25 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.chart-table-page {
+  max-width: 1000px;
+  margin: 32px auto;
+}
+
+.chart-table-page h1 {
+  margin-bottom: 12px;
+}
+
+.chart-table-page p {
+  margin-bottom: 20px;
+}
+
+.chart-table-page table {
+  background-color: #fff;
+}
+
+.chart-table-page th,
+.chart-table-page td {
+  vertical-align: middle;
+}
