@@ -30,7 +30,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.MigrateAsync();
-    await Seeder.SeedData(db);  
+    await Seeder.SeedData(db);
 }
 
 if (!app.Environment.IsDevelopment())

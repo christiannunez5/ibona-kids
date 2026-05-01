@@ -15,7 +15,7 @@ public class Product
     public required string Name { get; set; }
 
     [Precision(18, 2)]
-    public decimal Price { get; set; } 
+    public decimal Price { get; set; }
     public bool IsActive { get; set; } = true;
     public int StockQuantity { get; set; } = 50;
     public string? Description { get; set; }

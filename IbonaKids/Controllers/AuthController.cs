@@ -108,7 +108,7 @@ public class AuthController : Controller
             Username = model.Username,
             Email = model.Email,
             Password = model.Password,
-            Roles = UserRole.User 
+            Roles = UserRole.User
         };
 
         await _dbContext.Users.AddAsync(user);
