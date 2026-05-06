@@ -64,6 +64,21 @@
                             </span>
                         </li>
 
+                        <!-- Cart icon with badge -->
+                        <li class="nav-item">
+                            <a class="nav-link position-relative text-dark" style="font-size:0.95rem; padding:0.3rem 0.6rem;"
+                               asp-controller="Checkout" asp-action="Index" title="View cart">
+                                <i class="bi bi-cart fs-5"></i>
+                                @if (Model.CartCount > 0)
+                                {
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                          style="font-size:0.65rem;">
+                                        @Model.CartCount
+                                    </span>
+                                }
+                            </a>
+                        </li>
+
                         <li class="nav-item">
                             <form asp-controller="Auth" asp-action="Logout" method="post">
                                 <button type="submit" class="btn btn-dark btn-sm rounded-pill px-3"

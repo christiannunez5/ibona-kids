@@ -1,4 +1,6 @@
-﻿namespace IbonaKids.Models
+using System.ComponentModel.DataAnnotations;
+
+namespace IbonaKids.Models
 {
     public class Cart
     {
