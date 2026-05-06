@@ -68,7 +68,6 @@ namespace IbonaKids.Controllers
             }
             else
             {
-                // ensure not exceeding stock
                 item.Quantity = Math.Min(quantity, item.Product?.StockQuantity ?? quantity);
                 _context.Carts.Update(item);
             }
