@@ -20,7 +20,7 @@ public class RegisterViewModel
     [DataType(DataType.Password)]
     [Compare("Password", ErrorMessage = "Passwords do not match.")]
     public string ConfirmPassword { get; set; } = string.Empty;
-    
+
     [Display(Name = "Profile Picture")]
     public IFormFile? ProfilePicture { get; set; }
     public string? ProfileUrl { get; set; }

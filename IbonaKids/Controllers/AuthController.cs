@@ -135,14 +135,14 @@ public class AuthController : Controller
             profileUrl = $"/uploads/avatars/{fileName}";
         }
 
-            var user = new User
-            {
-                Username = model.Username,
-                Email = model.Email,
-                Password = model.Password,
-                Roles = UserRole.User,
-                ProfileUrl = profileUrl
-            };
+        var user = new User
+        {
+            Username = model.Username,
+            Email = model.Email,
+            Password = model.Password,
+            Roles = UserRole.User,
+            ProfileUrl = profileUrl
+        };
 
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
