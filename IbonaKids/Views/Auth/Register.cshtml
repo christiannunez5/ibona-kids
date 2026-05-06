@@ -11,7 +11,30 @@
             <h3 class="text-center fw-semibold mb-1">Create Account</h3>
             <p class="text-center text-muted mb-4">Sign up to get started</p>
 
-            <form asp-action="Register" method="post">
+            <form asp-action="Register" method="post" enctype="multipart/form-data">
+
+                <div class="mb-4 text-center">
+                    <div class="position-relative d-inline-block">
+                        <img id="avatarPreview"
+                             src="~/images/default-avatar.png"
+                             class="rounded-circle border"
+                             style="width: 90px; height: 90px; object-fit: cover; cursor: pointer;"
+                             alt="Profile Picture" />
+                        <label for="ProfilePicture"
+                               class="position-absolute bottom-0 end-0 bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                               style="width: 26px; height: 26px; cursor: pointer;">
+                            <i class="bi bi-camera-fill text-white" style="font-size: 12px;"></i>
+                        </label>
+                    </div>
+                    <input asp-for="ProfilePicture"
+                           type="file"
+                           id="ProfilePicture"
+                           class="d-none"
+                           accept="image/*"
+                           onchange="previewImage(event)" />
+                    <span asp-validation-for="ProfilePicture" class="d-block text-danger small mt-1"></span>
+                    <small class="text-muted d-block mt-1">Click to upload profile photo</small>
+                </div>
 
                 <div class="form-floating mb-3">
                     <input asp-for="Username" class="form-control" id="usernameInput" placeholder="Username">
@@ -55,3 +78,18 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}

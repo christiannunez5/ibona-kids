@@ -14,4 +14,5 @@ public class User
     public required string Password { get; set; }
     public UserRole Roles { get; set; }
     public double Balance { get; set; } = 10000.00;
+    public string? ProfileUrl { get; set; }
 }
