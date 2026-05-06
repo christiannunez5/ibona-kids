@@ -20,7 +20,7 @@ public class Product
     public int StockQuantity { get; set; } = 50;
     public string? Description { get; set; }
 
-    public string? ImageUrl { get; set;  }
+    public string? ImageUrl { get; set; }
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
