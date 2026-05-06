@@ -19,6 +19,7 @@ public class NavbarViewComponent : ViewComponent
         double? balance = null;
         string? username = null;
         string? profileUrl = null;
+        int cartCount = 0;
 
         if (User.Identity?.IsAuthenticated == true)
         {
@@ -32,6 +33,10 @@ public class NavbarViewComponent : ViewComponent
                 balance = user.Balance;
                 username = user.Username;
                 profileUrl = user.ProfileUrl;
+
+                cartCount = await _context.Carts
+                   .Where(c => c.UserId == user.Id)
+                   .SumAsync(c => (int?)c.Quantity) ?? 0;
             }
         }
 
@@ -39,7 +44,8 @@ public class NavbarViewComponent : ViewComponent
         {
             Balance = balance,
             Username = username,
-            ProfileUrl = profileUrl
+            ProfileUrl = profileUrl,
+            CartCount = cartCount
         };
 
         return View(model);
