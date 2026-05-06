@@ -18,6 +18,7 @@ public class NavbarViewComponent : ViewComponent
     {
         double? balance = null;
         string? username = null;
+        string? profileUrl = null;
 
         if (User.Identity?.IsAuthenticated == true)
         {
@@ -30,13 +31,15 @@ public class NavbarViewComponent : ViewComponent
             {
                 balance = user.Balance;
                 username = user.Username;
+                profileUrl = user.ProfileUrl;
             }
         }
 
         var model = new NavbarViewModel
         {
             Balance = balance,
-            Username = username
+            Username = username,
+            ProfileUrl = profileUrl
         };
 
         return View(model);

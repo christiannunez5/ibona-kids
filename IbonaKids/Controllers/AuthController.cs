@@ -3,6 +3,7 @@ using IbonaKids.Models;
 using IbonaKids.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -11,10 +12,12 @@ namespace IbonaKids.Controllers;
 public class AuthController : Controller
 {
     private readonly AppDbContext _dbContext;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public AuthController(AppDbContext dbContext)
+    public AuthController(AppDbContext dbContext, IWebHostEnvironment webHostEnvironment)
     {
         _dbContext = dbContext;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     #region Login
@@ -103,13 +106,43 @@ public class AuthController : Controller
             return View(model);
         }
 
-        var user = new User
+        string? profileUrl = null;
+        if (model.ProfilePicture != null && model.ProfilePicture.Length > 0)
         {
-            Username = model.Username,
-            Email = model.Email,
-            Password = model.Password,
-            Roles = UserRole.User
-        };
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+            var extension = Path.GetExtension(model.ProfilePicture.FileName).ToLowerInvariant();
+
+            if (!allowedExtensions.Contains(extension))
+            {
+                ModelState.AddModelError("ProfilePicture", "Only image files are allowed (.jpg, .jpeg, .png, .gif, .webp).");
+                return View(model);
+            }
+
+            if (model.ProfilePicture.Length > 2 * 1024 * 1024)
+            {
+                ModelState.AddModelError("ProfilePicture", "Image size must not exceed 2MB.");
+                return View(model);
+            }
+
+            var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads", "avatars");
+            Directory.CreateDirectory(uploadsFolder);
+            var fileName = $"{Guid.NewGuid()}{extension}";
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using var stream = new FileStream(filePath, FileMode.Create);
+            await model.ProfilePicture.CopyToAsync(stream);
+
+            profileUrl = $"/uploads/avatars/{fileName}";
+        }
+
+            var user = new User
+            {
+                Username = model.Username,
+                Email = model.Email,
+                Password = model.Password,
+                Roles = UserRole.User,
+                ProfileUrl = profileUrl
+            };
 
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
