@@ -1,0 +1,31 @@
+﻿@model IEnumerable<IbonaKids.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <div class="mb-4">
+        <h2 class="fw-bold">@ViewBag.SelectedCategory</h2>
+        <div style="width:40px; height:3px; background:#111; margin-top:0.5rem;"></div>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row row-cols-2 row-cols-md-3 g-3">
+            @foreach (var product in Model)
+            {
+                <div class="col">
+                    @await Html.PartialAsync("_ProductCard", product)
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center text-muted py-5">
+            <p style="font-family:'Raleway',sans-serif;">No products found in this category.</p>
+        </div>
+    }
+</div>
