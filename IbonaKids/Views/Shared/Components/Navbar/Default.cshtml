@@ -45,7 +45,11 @@
                 <ul class="navbar-nav align-items-center gap-2">
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <li class="nav-item">
+                        <li class="nav-item d-flex align-items-center gap-2">
+                            <img src="@(string.IsNullOrEmpty(Model.ProfileUrl) ? Url.Content("~/images/default-avatar.png") : Model.ProfileUrl)"
+                                 alt="Profile"
+                                 class="rounded-circle border"
+                                 style="width: 34px; height: 34px; object-fit: cover;" />
                             <span class="nav-link text-muted" style="font-size:0.875rem;">
                                 Hello, <strong class="text-dark">@User.Identity.Name</strong>
                             </span>
